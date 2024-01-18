@@ -1,9 +1,9 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import { Template } from "./HOC/Template";
-const Massage = lazy(() => import("@/page/message/Index"));
-const SignIn = lazy(() => import("@/page/signIn/Index"));
-const SignUp = lazy(() => import("@/page/signUp/Index"));
+import { Template } from "./HOCs/Template";
+const Massage = lazy(() => import("@/pages/message/Index"));
+const SignIn = lazy(() => import("@/pages/signIn/Index"));
+const SignUp = lazy(() => import("@/pages/signUp/Index"));
 
 export const router = createBrowserRouter([
   {
