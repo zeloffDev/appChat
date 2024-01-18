@@ -1,18 +1,28 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Template } from "./HOCs/Template";
-const Massage = lazy(() => import("@/pages/message/Index"));
-const SignIn = lazy(() => import("@/pages/signIn/Index"));
-const SignUp = lazy(() => import("@/pages/signUp/Index"));
+import { TemplateWithAuth } from "./HOCs/TemplateWithAuth";
+const Demo = lazy(() => import("@/pages/message/Demo"));
+const Massage = lazy(() => import("@/pages/message"));
+const SignIn = lazy(() => import("@/pages/signIn"));
+const SignUp = lazy(() => import("@/pages/signUp"));
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Massage />,
-  },
-
-  {
     element: <Template />,
+    children: [
+      {
+        path: "/",
+        element: <Massage />,
+      },
+      {
+        path: "/demo",
+        element: <Demo />,
+      },
+    ],
+  },
+  {
+    element: <TemplateWithAuth />,
     children: [
       {
         path: "signIn",

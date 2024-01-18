@@ -1,10 +1,10 @@
 import "@/App.css";
 import { router } from "@/Router";
 import { RouterProvider } from "react-router-dom";
-import { connectSocket } from "./Socket";
+import { useConnectSocket } from "./Socket";
 
 function App() {
-  connectSocket();
+  useConnectSocket();
   return <RouterProvider router={router} />;
 }
 
