@@ -1,4 +1,4 @@
-import "@/App.css";
+import "./App.css";
 import { router } from "@/Router";
 import { RouterProvider } from "react-router-dom";
 import { connectSocket } from "./Socket";
