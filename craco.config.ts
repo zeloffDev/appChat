@@ -9,6 +9,7 @@ module.exports = {
       "@HOCs": path.resolve(__dirname, "src/HOCs"),
       "@store": path.resolve(__dirname, "src/store"),
       "@Contexts": path.resolve(__dirname, "src/Contexts"),
+      "@svg": path.resolve(__dirname, "src/svgs"),
     },
   },
 };

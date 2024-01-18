@@ -21,7 +21,8 @@
       "@pages/*": ["./src/pages/*"],
       "@HOCs/*": ["./src/HOCs/*"],
       "@store/*": ["./src/store/*"],
-      "@Contexts*": ["./src/Contexts/*"]
+      "@Contexts*": ["./src/Contexts/*"],
+      "@svg*": ["./src/svgs/*"]
     }
   },
   "include": ["src", "webpack.config.ts"]

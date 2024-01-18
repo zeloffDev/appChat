@@ -3,7 +3,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        "100vh-360px": "calc(100vh - 360px)",
+      },
+    },
   },
   plugins: [],
 };

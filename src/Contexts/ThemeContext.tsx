@@ -29,11 +29,7 @@ export const DarkModeProvider = ({ children }: Props) => {
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      <div className={isDarkMode ? "dark" : ""}>
-        <p className="dark:text-white">cccc</p>
-        <button onClick={toggleDarkMode}>Toggle DarkMode</button>
-        {children}
-      </div>
+      <div className={`${isDarkMode ? "dark" : ""} h-screen`}>{children}</div>
     </DarkModeContext.Provider>
   );
 };
