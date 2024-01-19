@@ -1,4 +1,3 @@
-// DarkModeContext.js
 import {
   ReactNode,
   createContext,
@@ -29,7 +28,9 @@ export const DarkModeProvider = ({ children }: Props) => {
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      <div className={`${isDarkMode ? "dark" : ""} h-screen`}>{children}</div>
+      <div className={`${isDarkMode ? "dark" : ""} min-h-screen`}>
+        {children}
+      </div>
     </DarkModeContext.Provider>
   );
 };
