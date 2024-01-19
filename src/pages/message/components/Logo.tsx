@@ -1,5 +1,4 @@
 import { SvgLogo } from "@svg/SvgLogo";
-import React from "react";
 
 type Props = {};
 

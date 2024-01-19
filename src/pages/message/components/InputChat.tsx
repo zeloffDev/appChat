@@ -1,7 +1,6 @@
-import { SvgSend } from "@/svgs/SvgSend";
 import { SvgImportFile } from "@svg/SvgImportFile";
+import { SvgSend } from "@svg/SvgSend";
 import { SvgSmile } from "@svg/SvgSmile";
-import React from "react";
 
 type Props = {};
 

@@ -1,6 +1,5 @@
-import React from "react";
-import { SideBar } from "@pages/message/components/SideBar";
 import { ContainerChat } from "./components/ContainerChat";
+import { SideBar } from "./components/SideBar";
 
 type Props = {};
 

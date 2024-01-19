@@ -1,5 +1,3 @@
-import React from "react";
-
 type Props = {};
 
 export const SvgSmile = (props: Props) => {

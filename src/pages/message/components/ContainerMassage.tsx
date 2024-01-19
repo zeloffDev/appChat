@@ -1,4 +1,3 @@
-import React from "react";
 import { ReceiverMassage } from "./ReceiverMassage";
 import { SenderMassage } from "./SenderMassage";
 type Props = {};
@@ -20,7 +19,6 @@ export const ContainerMassage = (props: Props) => {
           <ReceiverMassage />
           <SenderMassage />
           <ReceiverMassage />
-
           <SenderMassage />
           <SenderMassage />
         </div>

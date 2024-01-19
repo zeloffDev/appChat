@@ -1,4 +1,3 @@
-import React from "react";
 import { ContainerMassage } from "./ContainerMassage";
 import { InputChat } from "./InputChat";
 
