@@ -10,6 +10,8 @@ module.exports = {
       "@store": path.resolve(__dirname, "src/store"),
       "@Contexts": path.resolve(__dirname, "src/Contexts"),
       "@svg": path.resolve(__dirname, "src/components/SvgComponent"),
+      "@constant": path.resolve(__dirname, "src/constants"),
+      "@util": path.resolve(__dirname, "src/utils"),
     },
   },
 };

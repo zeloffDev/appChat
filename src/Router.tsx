@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Template } from "@HOCs/Template";
 import { TemplateWithAuth } from "@HOCs/TemplateWithAuth";
@@ -9,7 +9,11 @@ const SignUp = lazy(() => import("@pages/signUp"));
 
 export const router = createBrowserRouter([
   {
-    element: <Template />,
+    element: (
+      <Suspense fallback="nested fallback">
+        <Template />
+      </Suspense>
+    ),
     children: [
       {
         path: "/",
@@ -22,7 +26,11 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    element: <TemplateWithAuth />,
+    element: (
+      <Suspense fallback="nested fallback">
+        <TemplateWithAuth />
+      </Suspense>
+    ),
     children: [
       {
         path: "signIn",

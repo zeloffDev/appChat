@@ -22,7 +22,9 @@
       "@HOCs/*": ["./src/HOCs/*"],
       "@store/*": ["./src/store/*"],
       "@Contexts*": ["./src/Contexts/*"],
-      "@svg*": ["./src/components/SvgComponent/*"]
+      "@svg*": ["./src/components/SvgComponent/*"],
+      "@constant*": ["./src/constants/*"],
+      "@util*": ["./src/utils/*"]
     }
   },
   "include": ["src", "webpack.config.ts"]

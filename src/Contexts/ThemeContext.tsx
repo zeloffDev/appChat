@@ -1,3 +1,5 @@
+import { getLocalStorageItem, setLocalStorageItem } from "@util/LocalStore";
+import { LOCAL_STORE_NAME } from "@constant/LocalStore";
 import {
   ReactNode,
   createContext,
@@ -20,10 +22,21 @@ const DarkModeContext = createContext<DarkModeContextValue | undefined>(
 );
 
 export const DarkModeProvider = ({ children }: Props) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const isDarkModeLocalStore = getLocalStorageItem(
+    LOCAL_STORE_NAME.IS_DARK_MODE
+  );
+
+  const parseIsDarkModeLocalStore: boolean = isDarkModeLocalStore
+    ? JSON.parse(isDarkModeLocalStore)
+    : false;
+
+  const [isDarkMode, setIsDarkMode] = useState(parseIsDarkModeLocalStore);
 
   const toggleDarkMode = useCallback(() => {
-    setIsDarkMode((prevMode) => !prevMode);
+    setIsDarkMode((prevMode) => {
+      setLocalStorageItem(LOCAL_STORE_NAME.IS_DARK_MODE, String(!prevMode));
+      return !prevMode;
+    });
   }, []);
 
   return (
