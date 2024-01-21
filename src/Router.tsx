@@ -6,6 +6,7 @@ const Massage = lazy(() => import("@pages/message"));
 const Demo = lazy(() => import("@pages/message/Demo"));
 const SignIn = lazy(() => import("@pages/signIn"));
 const SignUp = lazy(() => import("@pages/signUp"));
+const NotFound = lazy(() => import("@pages/notFound"));
 
 export const router = createBrowserRouter([
   {
@@ -41,5 +42,9 @@ export const router = createBrowserRouter([
         element: <SignUp />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

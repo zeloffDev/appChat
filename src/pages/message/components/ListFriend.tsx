@@ -1,8 +1,11 @@
 import { Friend } from "./Friend";
 
-type Props = {};
+type Props = {
+  handleOpenModal: () => void;
+};
 
 export const ListFriend = (props: Props) => {
+  const { handleOpenModal } = props;
   return (
     <div className="flex flex-col mt-8">
       <div className="flex flex-row items-center justify-between text-xs">
