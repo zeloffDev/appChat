@@ -7,7 +7,7 @@ import { Profile } from "@/components/Profile";
 type Props = {};
 
 export const SideBar = (props: Props) => {
-  const { item, handleOpenModal, Modal } = useCustomModal();
+  const { handleOpenModal, Modal } = useCustomModal();
   return (
     <div className="flex flex-col py-8 pl-8 pr-2 w-80  flex-shrink-0">
       <Logo />

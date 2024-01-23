@@ -29,7 +29,7 @@ export const useCustomModal = () => {
         </Modal>
       );
     },
-    [isOpen, item]
+    [isOpen, handleCloseModal]
   );
 
   return {

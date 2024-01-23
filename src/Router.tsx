@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Template } from "@HOCs/Template";
 import { TemplateWithAuth } from "@HOCs/TemplateWithAuth";
+import { RedirectToSignIn } from "./HOCs/RedirectToSignIn";
 const Massage = lazy(() => import("@pages/message"));
 const Demo = lazy(() => import("@pages/message/Demo"));
 const SignIn = lazy(() => import("@pages/signIn"));
@@ -10,41 +11,46 @@ const NotFound = lazy(() => import("@pages/notFound"));
 
 export const router = createBrowserRouter([
   {
-    element: (
-      <Suspense fallback="nested fallback">
-        <Template />
-      </Suspense>
-    ),
+    element: <RedirectToSignIn />,
     children: [
       {
-        path: "/",
-        element: <Massage />,
+        element: (
+          <Suspense fallback="nested fallback">
+            <Template />
+          </Suspense>
+        ),
+        children: [
+          {
+            path: "/",
+            element: <Massage />,
+          },
+          {
+            path: "/demo",
+            element: <Demo />,
+          },
+        ],
       },
       {
-        path: "/demo",
-        element: <Demo />,
+        element: (
+          <Suspense fallback="nested fallback">
+            <TemplateWithAuth />
+          </Suspense>
+        ),
+        children: [
+          {
+            path: "signIn",
+            element: <SignIn />,
+          },
+          {
+            path: "signUp",
+            element: <SignUp />,
+          },
+        ],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
-  },
-  {
-    element: (
-      <Suspense fallback="nested fallback">
-        <TemplateWithAuth />
-      </Suspense>
-    ),
-    children: [
-      {
-        path: "signIn",
-        element: <SignIn />,
-      },
-      {
-        path: "signUp",
-        element: <SignUp />,
-      },
-    ],
-  },
-  {
-    path: "*",
-    element: <NotFound />,
   },
 ]);

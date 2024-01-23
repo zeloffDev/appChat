@@ -1,19 +1,37 @@
 import { InputPassword } from "@/components/InputPassword";
-import { FormEvent } from "react";
-import { NavLink } from "react-router-dom";
+import { STATUS } from "@/constants/constants";
+import { useAppDispatch } from "@/store/Hook";
+import { signInThunk } from "@/store/user/userThunk";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { NavLink, useNavigate } from "react-router-dom";
 
 type Props = {};
 
+type Inputs = {
+  password: string;
+  userName: string;
+  remember: boolean;
+};
+
 const Index = (props: Props) => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const payload: { email?: string; password?: string } = {};
-    formData.forEach((value, key) => {
-      payload[key as keyof typeof payload] = value as string;
-    });
-    console.log(payload);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    dispatch(signInThunk(data))
+      .unwrap()
+      .then((res) => {
+        const { status } = res.data;
+        if (STATUS.STATUS_200 === status) {
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
@@ -22,17 +40,23 @@ const Index = (props: Props) => {
             <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Đăng nhập
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div>
                 <label
-                  htmlFor="account"
+                  htmlFor="userName"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Tài khoản
                 </label>
                 <input
-                  name="account"
-                  id="account"
+                  {...register("userName", {
+                    required: "Vui lòng nhập tài khoản",
+                  })}
+                  name="userName"
+                  id="userName"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
                   required
@@ -46,6 +70,7 @@ const Index = (props: Props) => {
                   Mật khẩu
                 </label>
                 <InputPassword
+                  {...register("password", { required: true })}
                   name="password"
                   id="password"
                   placeholder="••••••••"
@@ -56,6 +81,7 @@ const Index = (props: Props) => {
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
                     <input
+                      {...register("remember")}
                       id="remember"
                       name="remember"
                       aria-describedby="remember"
@@ -100,3 +126,25 @@ const Index = (props: Props) => {
 };
 
 export default Index;
+
+// const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+//   event.preventDefault();
+//   const formData = new FormData(event.currentTarget);
+//   const payload: { email?: string; password?: string } = {};
+//   formData.forEach((value, key) => {
+//     payload[key as keyof typeof payload] = value as string;
+//   });
+//   console.log(payload);
+//   axiosInstance.get("user/listUser");
+// };
+
+// const onSubmit: SubmitHandler<Inputs> = (data) => {
+//   // UserServices.userSignIn(data)
+//   //   .then((res) => {
+//   //     console.log(res.data.data);
+//   //     reduxAuth.signIn(res.data.data);
+//   //   })
+//   //   .catch((err) => {
+//   //     console.log(err);
+//   //   });
+// };
