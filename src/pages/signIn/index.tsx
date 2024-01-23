@@ -1,9 +1,17 @@
+import { ButtonSpin } from "@/components/ButtonSpin";
 import { InputPassword } from "@/components/InputPassword";
+import { LOCAL_STORE_NAME } from "@/constants/LocalStore";
 import { STATUS } from "@/constants/constants";
-import { useAppDispatch } from "@/store/Hook";
+import { useAppDispatch, useAppSelector } from "@/store/Hook";
 import { signInThunk } from "@/store/user/userThunk";
+import {
+  deleteLocalStorageItem,
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "@/utils/LocalStore";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -17,6 +25,9 @@ const Index = (props: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<Inputs>();
+  const isLoading = useAppSelector((state) => state.userStore.isLoading);
+  const userSignIn = getLocalStorageItem(LOCAL_STORE_NAME.USER_SIGN_IN);
+  const parseUserSignIn = userSignIn ? JSON.parse(userSignIn) : null;
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     dispatch(signInThunk(data))
@@ -25,10 +36,21 @@ const Index = (props: Props) => {
         const { status } = res.data;
         if (STATUS.STATUS_200 === status) {
           navigate("/");
+          toast.success("Đăng nhập thành công");
+          if (data.remember) {
+            setLocalStorageItem(
+              LOCAL_STORE_NAME.USER_SIGN_IN,
+              JSON.stringify(data)
+            );
+          } else {
+            deleteLocalStorageItem(LOCAL_STORE_NAME.USER_SIGN_IN);
+          }
         }
       })
       .catch((err) => {
         console.log(err);
+        const massage = err.response.data.message ?? "Đặng nhập thất bại";
+        toast.success(massage);
       });
   };
 
@@ -55,6 +77,7 @@ const Index = (props: Props) => {
                   {...register("userName", {
                     required: "Vui lòng nhập tài khoản",
                   })}
+                  defaultValue={parseUserSignIn && parseUserSignIn.userName}
                   name="userName"
                   id="userName"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -71,6 +94,7 @@ const Index = (props: Props) => {
                 </label>
                 <InputPassword
                   {...register("password", { required: true })}
+                  defaultValue={parseUserSignIn && parseUserSignIn.password}
                   name="password"
                   id="password"
                   placeholder="••••••••"
@@ -83,6 +107,9 @@ const Index = (props: Props) => {
                     <input
                       {...register("remember")}
                       id="remember"
+                      defaultChecked={
+                        parseUserSignIn && parseUserSignIn.remember
+                      }
                       name="remember"
                       aria-describedby="remember"
                       type="checkbox"
@@ -102,12 +129,7 @@ const Index = (props: Props) => {
                   Quên mật khẩu?
                 </p>
               </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-500 text-white hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Đăng nhập
-              </button>
+              <ButtonSpin isLoading={isLoading}>Đăng nhập</ButtonSpin>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Bạn chưa có tài khoản?{" "}
                 <NavLink to="/signup">

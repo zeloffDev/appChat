@@ -11,14 +11,14 @@ const NotFound = lazy(() => import("@pages/notFound"));
 
 export const router = createBrowserRouter([
   {
-    element: <RedirectToSignIn />,
+    element: (
+      <Suspense fallback="nested fallback">
+        <RedirectToSignIn />
+      </Suspense>
+    ),
     children: [
       {
-        element: (
-          <Suspense fallback="nested fallback">
-            <Template />
-          </Suspense>
-        ),
+        element: <Template />,
         children: [
           {
             path: "/",
@@ -31,11 +31,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        element: (
-          <Suspense fallback="nested fallback">
-            <TemplateWithAuth />
-          </Suspense>
-        ),
+        element: <TemplateWithAuth />,
         children: [
           {
             path: "signIn",

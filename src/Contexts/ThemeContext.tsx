@@ -7,7 +7,8 @@ import {
   useContext,
   useState,
 } from "react";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 type Props = {
   children: ReactNode;
 };
@@ -44,6 +45,7 @@ export const DarkModeProvider = ({ children }: Props) => {
       <div className={`${isDarkMode ? "dark" : ""} min-h-screen`}>
         {children}
       </div>
+      <ToastContainer theme={isDarkMode ? "dark" : "light"} />
     </DarkModeContext.Provider>
   );
 };

@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 export const RedirectToSignIn = () => {
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.userStore.user);
 
   useEffect(() => {
     if (!user) {
