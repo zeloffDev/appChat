@@ -49,8 +49,8 @@ const Index = (props: Props) => {
       })
       .catch((err) => {
         console.log(err);
-        const massage = err.response.data.message ?? "Đặng nhập thất bại";
-        toast.success(massage);
+        const massage = err?.response?.data?.message ?? "Đặng nhập thất bại";
+        toast.error(massage);
       });
   };
 

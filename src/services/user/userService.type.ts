@@ -15,3 +15,10 @@ export interface IResponseUserSignIn {
   updatedAt: string;
   __v: number;
 }
+
+export interface IUserSignUp {
+  name: string;
+  userName: string;
+  password: string;
+  rePassword: string;
+}
