@@ -8,7 +8,7 @@ import {
 import { createSlice } from "@reduxjs/toolkit";
 import { signInThunk } from "./userThunk";
 
-interface CounterState {
+interface UserState {
   user: IResponseUserSignIn | null;
   isLoading: boolean;
 }
@@ -22,7 +22,7 @@ const getUserLocal = () => {
   return parseUser;
 };
 
-const initialState: CounterState = {
+const initialState: UserState = {
   user: getUserLocal(),
   isLoading: false,
 };
