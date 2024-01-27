@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Template } from "@HOCs/Template";
 import { TemplateWithAuth } from "@HOCs/TemplateWithAuth";
 import { RedirectToSignIn } from "./HOCs/RedirectToSignIn";
-const Massage = lazy(() => import("@pages/message"));
+const Chat = lazy(() => import("@pages/chats"));
 const Demo = lazy(() => import("@pages/message/Demo"));
 const SignIn = lazy(() => import("@pages/signIn"));
 const SignUp = lazy(() => import("@pages/signUp"));
@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <Massage />,
+            element: <Chat />,
           },
           {
             path: "/demo",

@@ -16,7 +16,7 @@ const initialState: FriendState = {
   totalPage: 10,
 };
 
-export const friendSlice = createSlice({
+const friendSlice = createSlice({
   name: "friend",
   initialState,
   reducers: {
