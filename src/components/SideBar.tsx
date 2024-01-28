@@ -1,11 +1,11 @@
+import { DarkModeSwitchButton } from "@/components/DarkModeSwitchButton";
+import { useAppDispatch } from "@/store/Hook";
+import { setScreenFrameChat } from "@/store/screen/screenSlice";
 import { SvgFriend } from "@svg/SvgFriend";
 import { SvgMassage } from "@svg/SvgMassage";
 import { SvgPhone2 } from "@svg/SvgPhone2";
-import { SvgSetting } from "@svg/SvgSetting";
 import { useState } from "react";
-import { DarkModeSwitchButton } from "@/components/DarkModeSwitchButton";
-import { setScreenFrameChat } from "@/store/screen/screenSlice";
-import { useAppDispatch } from "@/store/Hook";
+import ButtonSetting from "./ButtonSetting";
 
 type Props = {};
 
@@ -64,10 +64,8 @@ export const SideBar = (props: Props) => {
           );
         })}
         <div className="w-[51px] mt-[15px] border-t"></div>
-        <div className="w-[48px] h-[48px]  mt-[15px]  rounded-xl flex items-center justify-center">
-          <SvgSetting />
-        </div>
-        <div className="w-[48px] h-[48px]  mt-[15px]  rounded-xl flex items-center justify-center">
+        <ButtonSetting />
+        <div className="w-[48px] h-[48px]  mt-[15px]  rounded-xl flex items-center justify-center ">
           <DarkModeSwitchButton />
         </div>
       </div>

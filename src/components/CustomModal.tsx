@@ -21,8 +21,7 @@ export const useCustomModal = () => {
       ...rest
     }: {
       children: ReactNode;
-      rest?: HTMLProps<HTMLDivElement>;
-    }) => {
+    } & HTMLProps<HTMLDivElement>) => {
       return (
         <Modal isOpen={isOpen} handleCloseModal={handleCloseModal} {...rest}>
           {children}

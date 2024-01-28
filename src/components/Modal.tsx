@@ -16,7 +16,7 @@ export const Modal = (props: Props) => {
     >
       <div className="flex justify-center items-center text-center  min-h-screen ">
         <div
-          className="dark:bg-gray-900 mb-32 z-10 bg-white rounded-lg  min-h-32 sm:max-w-xl w-full relative"
+          className="dark:bg-gray-500 mb-[50px] z-10 bg-bgSideBar rounded-lg mx-[10px] min-h-32 sm:max-w-xl w-full relative"
           {...rest}
         >
           <button

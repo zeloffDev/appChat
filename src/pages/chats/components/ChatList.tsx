@@ -1,8 +1,10 @@
+import { useCustomModal } from "@/components/CustomModal";
+import { InputSearch } from "@/components/InputSearch";
 import { SvgAddFriend } from "@/components/SvgComponent/SvgAddFriend";
-import { SvgSearch } from "@/components/SvgComponent/SvgSearch";
 import { useAppDispatch, useAppSelector } from "@/store/Hook";
 import { setScreenFrameChat } from "@/store/screen/screenSlice";
 import { useCallback, useState } from "react";
+import AddFriend from "./AddFriend";
 import ItemFriendChat from "./ItemFriendChat";
 
 type Props = {};
@@ -10,6 +12,7 @@ type Props = {};
 export const ChatList = (props: Props) => {
   const dispatch = useAppDispatch();
   const [active, setActive] = useState(1);
+  const { Modal, handleOpenModal } = useCustomModal();
   const screenFrameChat = useAppSelector(
     (state) => state.ScreenStore.screenFrameChat
   );
@@ -38,25 +41,21 @@ export const ChatList = (props: Props) => {
     >
       <div className="mx-[20px]">
         <div className="font-bold text-2xl leading-10 mt-[15px]">Chats</div>
-        <div className="mt-[15px] relative">
-          <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
-            <SvgSearch />
-          </span>
-          <input
-            className="w-full pl-10 h-[40px] outline-none rounded-20px  border border-gray-300 text-gray-900 sm:text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
-            placeholder="Search"
-          />
-        </div>
-
+        <InputSearch />
         <div className="w-full mt-[15px] border-t" />
         <div className="flex justify-between items-center">
           <p className="mt-[8px] font-semibold text-allChats dark:text-white leading-5">
             All Chats
           </p>
-          <div className="mt-[15px] flex items-center">
-            <SvgAddFriend />{" "}
-            <p className="ml-2 text-sky-600 cursor-pointer">Add friend</p>
-          </div>
+          <button
+            onClick={handleOpenModal}
+            className="mt-[15px] flex items-center"
+          >
+            <SvgAddFriend /> <p className="ml-2 ">Add friend</p>
+          </button>
+          <Modal>
+            <AddFriend />
+          </Modal>
         </div>
       </div>
       <div className=" h-100vh-180px overflow-auto mt-[18px]">
