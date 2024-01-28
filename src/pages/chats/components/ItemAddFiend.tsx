@@ -14,16 +14,16 @@ export default function ItemAddFriend(props: IItemAddFriendProps) {
           className="h-full w-full"
         />
       </div>
-      <div className="ml-[17px] text-left">
+      <div className="ml-[17px] text-left mx-[5px]">
         <p className="font-semibold text-sm">zeloff</p>
         <p className={`font-normal truncate dark:text-whitetext-lastMassage`}>
-          Chưa kết bạn
+          Haven't made friends yet
         </p>
       </div>
       <div className="flex justify-end flex-auto text-timeMassage mr-[25px]">
-        <button className="flex items-center justify-center ml-2 bg-active hover:bg-blue-500 rounded-xl text-white px-4 py-2 flex-shrink-0">
-          <span>Add friends </span>
-          <span className="ml-2">
+        <button className="flex items-center justify-center bg-active hover:bg-blue-500 rounded-xl text-white px-4 py-2 flex-shrink-0">
+          <p className="hidden sm:block ">Add friend</p>
+          <span className="sm:ml-2 ">
             <SvgSend />
           </span>
         </button>

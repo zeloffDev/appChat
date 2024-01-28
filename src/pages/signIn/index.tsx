@@ -36,7 +36,7 @@ const Index = (props: Props) => {
         const { status } = res.data;
         if (STATUS.STATUS_200 === status) {
           navigate("/");
-          toast.success("Đăng nhập thành công");
+          toast.success("Logged in successfully");
           if (data.remember) {
             setLocalStorageItem(
               LOCAL_STORE_NAME.USER_SIGN_IN,
@@ -49,7 +49,7 @@ const Index = (props: Props) => {
       })
       .catch((err) => {
         console.log(err);
-        const massage = err?.response?.data?.message ?? "Đặng nhập thất bại";
+        const massage = err?.response?.data?.message ?? "Login failed";
         toast.error(massage);
       });
   };
@@ -60,7 +60,7 @@ const Index = (props: Props) => {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Đăng nhập
+              Sign in
             </h1>
             <form
               className="space-y-4 md:space-y-6"
@@ -71,17 +71,17 @@ const Index = (props: Props) => {
                   htmlFor="userName"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Tài khoản
+                  Account
                 </label>
                 <input
                   {...register("userName", {
-                    required: "Vui lòng nhập tài khoản",
+                    required: "Please enter account",
                   })}
                   defaultValue={parseUserSignIn && parseUserSignIn.userName}
                   name="userName"
                   id="userName"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@company.com"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-blue-500 focus:outline-none block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Name@company.com"
                   required
                 />
               </div>
@@ -90,7 +90,7 @@ const Index = (props: Props) => {
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Mật khẩu
+                  Password
                 </label>
                 <InputPassword
                   {...register("password", { required: true })}
@@ -121,21 +121,21 @@ const Index = (props: Props) => {
                       htmlFor="remember"
                       className="text-gray-500 dark:text-gray-300"
                     >
-                      Lưu thông tin
+                      Save information
                     </label>
                   </div>
                 </div>
                 <p className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
-                  Quên mật khẩu?
+                  Forgot password?
                 </p>
               </div>
               <ButtonSpin isLoading={isLoading}>Đăng nhập</ButtonSpin>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Bạn chưa có tài khoản?{" "}
+                Do not have an account?
                 <NavLink to="/signup">
                   {" "}
                   <span className="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                    Đăng kí
+                    Register
                   </span>
                 </NavLink>
               </p>

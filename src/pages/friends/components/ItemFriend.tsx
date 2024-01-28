@@ -1,25 +1,11 @@
-export interface IAppProps {
-  active: number;
-  value: number;
-  name: string;
-  lastMessage: string;
-  time: string;
-  handleSetActive: (value: number) => void;
-}
+import { SvgDelete } from "@svg/SvgDelete";
 
-export default function ItemFriendChat(props: IAppProps) {
-  const { active, value, name, lastMessage, time, handleSetActive } = props;
-  const isActive = active === value;
+type Props = {};
 
+export const ItemFriend = (props: Props) => {
   return (
-    <button
-      onClick={() => handleSetActive(value)}
-      className={`mb-[18px] w-full h-[65px]  duration-300  rounded-2xl flex items-center cursor-pointer 
-      ${
-        isActive
-          ? "bg-active text-white"
-          : "bg-white dark:bg-gray-600 hover:bg-blue-100 dark:hover:bg-gray-500"
-      }`}
+    <div
+      className={`mb-[18px] w-full h-[65px]  duration-300  rounded-2xl flex items-center bg-white dark:bg-gray-600 hover:bg-blue-100 dark:hover:bg-gray-700 }`}
     >
       <div className="w-[48px]  h-[48px]  ml-[15px] bg-bgLogo rounded-full overflow-hidden ">
         <img
@@ -28,25 +14,20 @@ export default function ItemFriendChat(props: IAppProps) {
           className="h-full w-full"
         />
       </div>
-      <div className="ml-[17px] text-left">
-        <p className="font-semibold text-sm">{name}</p>
-        <p
-          className={`font-normal  truncate dark:text-white
-          ${isActive ? "text-white" : "text-lastMassage"}`}
-        >
-          {lastMessage}
+      <div className="ml-[17px] text-left mx-[5px]">
+        <p className="font-semibold text-sm">zeloff</p>
+        <p className={`font-normal truncate dark:text-whitetext-lastMassage`}>
+          Friend
         </p>
       </div>
-      <div className="text-end flex-auto ml-2 text-timeMassage mr-[25px]">
-        <p className={isActive ? "text-white" : "dark:text-white"}>{time}</p>
-        <p
-          className={`w-[15px] h-[15px] mt-1 rounded-full float-right text-white flex items-center justify-center text-center ${
-            isActive ? "bg-blue-600" : "bg-blueItem"
-          }`}
-        >
-          2
-        </p>
+      <div className="flex justify-end flex-auto text-timeMassage mr-[25px]">
+        <button className="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-xl text-white px-4 py-2 flex-shrink-0">
+          <p className="hidden sm:block ">Delete friend</p>
+          <span className="sm:ml-2 ">
+            <SvgDelete />
+          </span>
+        </button>
       </div>
-    </button>
+    </div>
   );
-}
+};

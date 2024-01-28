@@ -8,6 +8,8 @@ const Demo = lazy(() => import("@pages/message/Demo"));
 const SignIn = lazy(() => import("@pages/signIn"));
 const SignUp = lazy(() => import("@pages/signUp"));
 const NotFound = lazy(() => import("@pages/notFound"));
+const Profile = lazy(() => import("@pages/profile"));
+const Friends = lazy(() => import("@/pages/friends"));
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ export const router = createBrowserRouter([
           {
             path: "/demo",
             element: <Demo />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "friends",
+            element: <Friends />,
           },
         ],
       },

@@ -17,7 +17,7 @@ export default function InputFrameChat(props: IInputFrameChatProps) {
           <input
             type="text"
             placeholder="Write a massage"
-            className="flex dark:bg-gray-900/20  w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+            className="flex dark:bg-gray-900/20 relative pr-[40px] truncate w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
           ></input>
           <button className="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
             <SvgSmile />

@@ -44,7 +44,7 @@ export const ChatList = (props: Props) => {
         <InputSearch />
         <div className="w-full mt-[15px] border-t" />
         <div className="flex justify-between items-center">
-          <p className="mt-[8px] font-semibold text-allChats dark:text-white leading-5">
+          <p className="mt-[8px] truncate font-semibold text-allChats dark:text-white leading-5">
             All Chats
           </p>
           <button

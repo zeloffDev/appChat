@@ -30,7 +30,7 @@ export default function ButtonSetting(props: IButtonSettingProps) {
         <SvgSetting />
       </button>
       <div
-        className={`absolute top-[20px] left-[50px] bg-white p-2 rounded-xl text-xs dark:bg-gray-600 
+        className={`absolute z-[1] top-[20px] left-[50px] bg-white p-2 rounded-xl text-xs dark:bg-gray-600 
         ${screenSetting ? "" : "hidden "}`}
       >
         <button
