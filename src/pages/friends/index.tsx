@@ -26,7 +26,6 @@ export default function Friend(props: IFriendProps) {
         return <AddFriend />;
       case 3:
         return <ListFriendRequest />;
-
       default:
         return <ListFriend />;
     }

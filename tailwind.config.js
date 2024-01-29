@@ -9,6 +9,7 @@ module.exports = {
         "100vh-178px": "calc(100vh - 178px)",
         "100vh-130px": "calc(100vh - 130px)",
         "100vh-180px": "calc(100vh - 180px);",
+        "100vh-194px": "calc(100vh - 194px)",
       },
       width: {
         "100vw-510px": "calc(100vw - 510px)",
