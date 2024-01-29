@@ -35,9 +35,8 @@ export const ChatList = (props: Props) => {
 
   return (
     <div
-      className={`${
-        screenFrameChat ? "hidden sm:block" : "w-full "
-      } sm:w-[350px] bg-bgChatList border-r dark:border-none dark:bg-gray-800 `}
+      className={` sm:w-[350px] bg-bgChatList border-r dark:border-none dark:bg-gray-800 
+      ${screenFrameChat ? "hidden sm:block" : "w-full "}`}
     >
       <div className="mx-[20px]">
         <div className="font-bold text-2xl leading-10 mt-[15px]">Chats</div>

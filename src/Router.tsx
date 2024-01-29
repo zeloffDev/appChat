@@ -14,7 +14,7 @@ const Friends = lazy(() => import("@/pages/friends"));
 export const router = createBrowserRouter([
   {
     element: (
-      <Suspense fallback="nested fallback">
+      <Suspense fallback="Loading...">
         <RedirectToSignIn />
       </Suspense>
     ),

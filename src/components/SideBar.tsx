@@ -82,7 +82,7 @@ export const SideBar = (props: Props) => {
               key={item.value}
               onClick={() => handleActive(item)}
               className={`w-[48px] stroke-dark h-[48px]  mt-[15px] duration-700  rounded-xl flex items-center justify-center  cursor-pointer ${
-                isActive ? "bg-active " : "hover:bg-blue-200"
+                isActive ? "bg-active" : "hover:bg-blue-200"
               } `}
             >
               {isActive ? item.svgActive : item.svg}

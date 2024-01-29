@@ -129,7 +129,7 @@ const Index = (props: Props) => {
                   Forgot password?
                 </p>
               </div>
-              <ButtonSpin isLoading={isLoading}>Đăng nhập</ButtonSpin>
+              <ButtonSpin isLoading={isLoading}>Log in</ButtonSpin>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Do not have an account?
                 <NavLink to="/signup">

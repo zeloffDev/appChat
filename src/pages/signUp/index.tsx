@@ -124,7 +124,7 @@ const Index = (props: Props) => {
                   <p className="text-red-500"> {errors.rePassword.message}</p>
                 )}
               </div>
-              <ButtonSpin isLoading={loading}>Đăng kí</ButtonSpin>
+              <ButtonSpin isLoading={loading}>Register</ButtonSpin>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Have you registered an account?
                 <NavLink to="/signin">

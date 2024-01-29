@@ -1,8 +1,8 @@
-import { SvgDelete } from "@svg/SvgDelete";
+import { SvgSuccess } from "@svg/SvgSuccess";
 
 type Props = {};
 
-export const ItemFriend = (props: Props) => {
+export const ItemFriendRequest = (props: Props) => {
   return (
     <div
       className={`mb-[18px] w-full h-[65px]  duration-300  rounded-2xl flex items-center bg-white dark:bg-gray-600 hover:bg-blue-100 dark:hover:bg-gray-700 }`}
@@ -21,10 +21,10 @@ export const ItemFriend = (props: Props) => {
         </p>
       </div>
       <div className="flex justify-end flex-auto text-timeMassage mr-[25px]">
-        <button className="flex items-center justify-center bg-red-500 hover:bg-red-600 rounded-xl text-white px-4 py-2 flex-shrink-0">
-          <p className="hidden sm:block ">Delete </p>
+        <button className="flex items-center rounded-xl bg-active hover:bg-blue-500 justify-centerrounded-xl text-white px-4 py-2 flex-shrink-0">
+          <p className="hidden sm:block ">Accept</p>
           <span className="sm:ml-2 ">
-            <SvgDelete />
+            <SvgSuccess />
           </span>
         </button>
       </div>
