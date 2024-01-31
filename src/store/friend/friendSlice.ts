@@ -45,13 +45,13 @@ const friendSlice = createSlice({
       state.friendsRequest = newFriendsRequest.filter(
         (item) => item._id !== friendId
       );
-      state.limit = state.limit - 1;
+      state.skip = state.skip - 1;
     },
     deleteFriend: (state, action) => {
       const { friendId } = action.payload;
       const newFriends = [...state.friends];
       state.friends = newFriends.filter((item) => item._id !== friendId);
-      state.limit = state.limit - 1;
+      state.skip = state.skip - 1;
     },
     addFriendRequest: (state, action) => {
       const { friendId, userId } = action.payload;
