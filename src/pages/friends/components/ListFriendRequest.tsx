@@ -1,14 +1,34 @@
-import { ItemFriendRequest } from "./ItemFriendrequest";
+import { useAppSelector } from "@/store/Hook";
+import { ItemFriendRequest } from "./ItemFriendRequest";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-type Props = {};
+type Props = {
+  getListFriendRequest: (skip: number, limit: number) => void;
+};
 
 export const ListFriendRequest = (props: Props) => {
+  const { getListFriendRequest } = props;
+  const { friendsRequest, next, limit, skip } = useAppSelector(
+    (state) => state.friendStore
+  );
+
   return (
-    <div className=" h-100vh-194px overflow-auto mt-[18px]">
+    <div
+      id="friendsRequestScroll"
+      className=" h-100vh-194px overflow-auto mt-[18px]"
+    >
       <div className="mx-[20px] ">
-        <ItemFriendRequest />
-        <ItemFriendRequest />
-        <ItemFriendRequest />
+        <InfiniteScroll
+          dataLength={friendsRequest.length + 15}
+          next={() => getListFriendRequest(skip, limit)}
+          hasMore={next}
+          loader={<h4>Loading...</h4>}
+          scrollableTarget="friendsRequestScroll"
+        >
+          {friendsRequest.map((item) => {
+            return <ItemFriendRequest key={item._id} {...item} />;
+          })}
+        </InfiniteScroll>
       </div>
     </div>
   );

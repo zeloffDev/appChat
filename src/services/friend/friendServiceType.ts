@@ -1,5 +1,13 @@
 export interface IGetFriends {
   userId: string;
+  name?: string | null;
+  limit: number;
+  skip: number;
+}
+
+export interface IAddFriend {
+  userId: string;
+  friendId: string;
 }
 
 export interface IResponseGetFriends {

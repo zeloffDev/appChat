@@ -9,12 +9,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { signInThunk } from "./userThunk";
 
 interface UserState {
-  user: IResponseUserSignIn | null;
+  user: IResponseUserSignIn;
   isLoading: boolean;
 }
 
 const getUserLocal = () => {
-  let parseUser = null;
+  let parseUser = {} as IResponseUserSignIn;
   const user = getLocalStorageItem(LOCAL_STORE_NAME.USER);
   if (user) {
     parseUser = JSON.parse(user);
@@ -35,7 +35,7 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     signOut: (state, action) => {
-      state.user = null;
+      state.user = {} as IResponseUserSignIn;
       deleteLocalStorageItem(LOCAL_STORE_NAME.USER);
     },
   },

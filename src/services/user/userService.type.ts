@@ -9,8 +9,8 @@ export interface IResponseUserSignIn {
   name: string;
   userName: string;
   password: string;
-  listFriend: any[];
-  listFriendRequest: any[];
+  listFriend: string[];
+  listFriendRequest: string[];
   createdAt: string;
   updatedAt: string;
   __v: number;

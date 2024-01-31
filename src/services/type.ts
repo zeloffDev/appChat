@@ -12,3 +12,11 @@ export interface IResponsePage<Data> {
   totalRecord: number;
   status: number;
 }
+
+export interface IResponseSkipCount<Data> {
+  data: Data;
+  skip: number;
+  limit: number;
+  status: number;
+  next: boolean;
+}

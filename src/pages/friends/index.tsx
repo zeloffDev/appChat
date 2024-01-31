@@ -1,14 +1,69 @@
 import ChatOnboard from "@/components/ChatOnboard";
 import { InputSearch } from "@/components/InputSearch";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/Hook";
+import {
+  getFriendsThunk,
+  getListFriendRequestThunk,
+  getListUserThunk,
+} from "@/store/friend/friendThunk";
+import { debounce } from "@/utils";
+import { useCallback, useEffect, useState } from "react";
+import AddFriend from "./components/AddFriend";
 import { ListFriend } from "./components/ListFriend";
 import { ListFriendRequest } from "./components/ListFriendRequest";
-import AddFriend from "./components/AddFriend";
 
 export interface IFriendProps {}
 
 export default function Friend(props: IFriendProps) {
   const [active, setActive] = useState(1);
+  const [valueSearch, setValueSearch] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userStore.user);
+
+  const getListFriend = useCallback(
+    (skip: number, limit: number) => {
+      if (user) {
+        const params = {
+          userId: user._id,
+          name: valueSearch,
+          skip: skip,
+          limit: limit,
+        };
+        dispatch(getFriendsThunk(params));
+      }
+    },
+    [user?._id, valueSearch]
+  );
+
+  const getListUser = useCallback(
+    (skip: number, limit: number) => {
+      if (user) {
+        const params = {
+          userId: user._id,
+          name: valueSearch,
+          skip: skip,
+          limit: limit,
+        };
+        dispatch(getListUserThunk(params));
+      }
+    },
+    [user?._id, valueSearch]
+  );
+
+  const getListFriendRequest = useCallback(
+    (skip: number, limit: number) => {
+      if (user) {
+        const params = {
+          userId: user._id,
+          name: valueSearch,
+          skip: skip,
+          limit: limit,
+        };
+        dispatch(getListFriendRequestThunk(params));
+      }
+    },
+    [user?._id, valueSearch]
+  );
 
   const tabs = [
     { value: 1, label: "All Friend" },
@@ -23,23 +78,48 @@ export default function Friend(props: IFriendProps) {
   const renderContentTab = () => {
     switch (active) {
       case 2:
-        return <AddFriend />;
+        return <AddFriend getListUser={getListUser} />;
       case 3:
-        return <ListFriendRequest />;
+        return (
+          <ListFriendRequest getListFriendRequest={getListFriendRequest} />
+        );
       default:
-        return <ListFriend />;
+        return <ListFriend getListFriend={getListFriend} />;
     }
   };
+
+  const getData = () => {
+    switch (active) {
+      case 2:
+        return getListUser(0, 10);
+      case 3:
+        return getListFriendRequest(0, 10);
+      default:
+        getListFriend(0, 10);
+    }
+  };
+
+  const handleSetSearch = debounce((e) => {
+    setValueSearch(e);
+  });
+
+  useEffect(() => {
+    getData();
+  }, [valueSearch, active]);
 
   return (
     <div className="flex text-xs w-full">
       <div className="sm:w-[350px] w-full border-r bg-bgChatList dark:border-none dark:bg-gray-800">
         <div className="mx-[20px]">
           <div className="font-bold text-2xl leading-10 mt-[15px]">Friends</div>
-          <InputSearch />
+          <InputSearch
+            onChange={(e) => {
+              handleSetSearch(e.target.value);
+            }}
+          />
           <div className="w-full mt-[15px] border-t" />
           <div className=" font-semibold text-allChats dark:text-white text-center text-gray-500  border-gray-200 dark:text-gray-400 dark:border-gray-700">
-            <ul className="flex flex-wrap -mb-px">
+            <ul className="flex -mb-px">
               {tabs.map((item) => {
                 const isActive = item.value === active;
                 return (

@@ -4,7 +4,6 @@ import { Template } from "@HOCs/Template";
 import { TemplateWithAuth } from "@HOCs/TemplateWithAuth";
 import { RedirectToSignIn } from "./HOCs/RedirectToSignIn";
 const Chat = lazy(() => import("@pages/chats"));
-const Demo = lazy(() => import("@pages/message/Demo"));
 const SignIn = lazy(() => import("@pages/signIn"));
 const SignUp = lazy(() => import("@pages/signUp"));
 const NotFound = lazy(() => import("@pages/notFound"));
@@ -25,10 +24,6 @@ export const router = createBrowserRouter([
           {
             path: "/",
             element: <Chat />,
-          },
-          {
-            path: "/demo",
-            element: <Demo />,
           },
           {
             path: "profile",
