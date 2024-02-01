@@ -11,14 +11,20 @@ import { useCallback, useEffect, useState } from "react";
 import AddFriend from "./components/AddFriend";
 import { ListFriend } from "./components/ListFriend";
 import { ListFriendRequest } from "./components/ListFriendRequest";
+import { LIMIT } from "@/constants/constants";
 
 export interface IFriendProps {}
+
+const ALL_FRIEND = { value: 1, label: "All Friend" };
+const ADD_FRIEND = { value: 2, label: "Add Friend" };
+const FRIEND_REQUEST = { value: 3, label: "Friend Request" };
 
 export default function Friend(props: IFriendProps) {
   const [active, setActive] = useState(1);
   const [valueSearch, setValueSearch] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userStore.user);
+  const tabs = [ALL_FRIEND, ADD_FRIEND, FRIEND_REQUEST];
 
   const getListFriend = useCallback(
     (skip: number, limit: number) => {
@@ -32,7 +38,7 @@ export default function Friend(props: IFriendProps) {
         dispatch(getFriendsThunk(params));
       }
     },
-    [user?._id, valueSearch]
+    [user, valueSearch]
   );
 
   const getListUser = useCallback(
@@ -47,7 +53,7 @@ export default function Friend(props: IFriendProps) {
         dispatch(getListUserThunk(params));
       }
     },
-    [user?._id, valueSearch]
+    [user, valueSearch]
   );
 
   const getListFriendRequest = useCallback(
@@ -62,14 +68,8 @@ export default function Friend(props: IFriendProps) {
         dispatch(getListFriendRequestThunk(params));
       }
     },
-    [user?._id, valueSearch]
+    [user, valueSearch]
   );
-
-  const tabs = [
-    { value: 1, label: "All Friend" },
-    { value: 2, label: "Add Friend" },
-    { value: 3, label: "Friend Request" },
-  ];
 
   const handleActive = (value: number) => {
     setActive(value);
@@ -77,9 +77,9 @@ export default function Friend(props: IFriendProps) {
 
   const renderContentTab = () => {
     switch (active) {
-      case 2:
+      case ADD_FRIEND.value:
         return <AddFriend getListUser={getListUser} />;
-      case 3:
+      case FRIEND_REQUEST.value:
         return (
           <ListFriendRequest getListFriendRequest={getListFriendRequest} />
         );
@@ -90,12 +90,12 @@ export default function Friend(props: IFriendProps) {
 
   const getData = () => {
     switch (active) {
-      case 2:
-        return getListUser(0, 10);
-      case 3:
-        return getListFriendRequest(0, 10);
+      case ADD_FRIEND.value:
+        return getListUser(0, LIMIT.LIMIT);
+      case FRIEND_REQUEST.value:
+        return getListFriendRequest(0, LIMIT.LIMIT);
       default:
-        getListFriend(0, 10);
+        getListFriend(0, LIMIT.LIMIT);
     }
   };
 

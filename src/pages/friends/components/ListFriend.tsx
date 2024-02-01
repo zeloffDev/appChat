@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/store/Hook";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { ItemFriend } from "./ItemFriend";
+import ItemFriend from "./ItemFriend";
 
 type Props = {
   getListFriend: (skip: number, limit: number) => void;

@@ -1,7 +1,10 @@
+import { CustomImg } from "@/components/CustomImg";
+import { MASSAGE_NOTIFICATION } from "@/constants/MassageToastify";
 import { FriendServices } from "@/services/friend/friendService";
-import { useAppDispatch, useAppSelector } from "@/store/Hook";
+import { useAppSelector } from "@/store/Hook";
 import { friendRedux } from "@/store/friend/friendRedux";
 import { SvgDelete } from "@svg/SvgDelete";
+import { memo } from "react";
 import { toast } from "react-toastify";
 
 type Props = {
@@ -10,8 +13,7 @@ type Props = {
   _id: string;
 };
 
-export const ItemFriend = (props: Props) => {
-  const dispatch = useAppDispatch();
+const ItemFriend = (props: Props) => {
   const { avatar, name, _id: friendId } = props;
   const { _id } = useAppSelector((state) => state.userStore.user);
 
@@ -23,10 +25,10 @@ export const ItemFriend = (props: Props) => {
     FriendServices.deleteFriend(payload)
       .then((res) => {
         friendRedux.deleteFriend(payload);
-        toast.success("Successfully deleted friends");
+        toast.success(MASSAGE_NOTIFICATION.REMOVE_FRIEND_SUCCESS);
       })
       .catch((err) => {
-        toast.error("Deleting friends failed");
+        toast.error(MASSAGE_NOTIFICATION.REMOVE_FRIEND_ERROR);
       });
   };
 
@@ -35,7 +37,7 @@ export const ItemFriend = (props: Props) => {
       className={`mb-[18px] w-full h-[65px]  duration-300  rounded-2xl flex items-center bg-white dark:bg-gray-600 hover:bg-blue-100 dark:hover:bg-gray-700 }`}
     >
       <div className="w-[48px]  h-[48px]  ml-[15px] bg-bgLogo rounded-full overflow-hidden ">
-        <img src={avatar} alt="Avatar" className="h-full w-full" />
+        <CustomImg src={avatar} alt="Avatar" className="h-full w-full" />
       </div>
       <div className="ml-[17px] text-left mx-[5px]">
         <p className="font-semibold text-sm">{name}</p>
@@ -57,3 +59,5 @@ export const ItemFriend = (props: Props) => {
     </div>
   );
 };
+
+export default memo(ItemFriend);

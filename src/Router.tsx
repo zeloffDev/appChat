@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Template } from "@HOCs/Template";
 import { TemplateWithAuth } from "@HOCs/TemplateWithAuth";
 import { RedirectToSignIn } from "./HOCs/RedirectToSignIn";
+import { PATH_NAME } from "./constants/PathName";
 const Chat = lazy(() => import("@pages/chats"));
 const SignIn = lazy(() => import("@pages/signIn"));
 const SignUp = lazy(() => import("@pages/signUp"));
@@ -22,16 +23,20 @@ export const router = createBrowserRouter([
         element: <Template />,
         children: [
           {
-            path: "/",
+            path: PATH_NAME.CHAT,
             element: <Chat />,
           },
           {
-            path: "profile",
+            path: PATH_NAME.PROFILE,
             element: <Profile />,
           },
           {
-            path: "friends",
+            path: PATH_NAME.FRIENDS,
             element: <Friends />,
+          },
+          {
+            path: PATH_NAME.PHONE,
+            element: <>phone</>,
           },
         ],
       },
@@ -39,11 +44,11 @@ export const router = createBrowserRouter([
         element: <TemplateWithAuth />,
         children: [
           {
-            path: "signIn",
+            path: PATH_NAME.SIGN_IN,
             element: <SignIn />,
           },
           {
-            path: "signUp",
+            path: PATH_NAME.SIGN_UP,
             element: <SignUp />,
           },
         ],

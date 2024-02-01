@@ -18,7 +18,7 @@ export default function AddFriend(props: IAddFriendProps) {
     >
       <div className="mx-[20px] ">
         <InfiniteScroll
-          dataLength={listUser.length + 15}
+          dataLength={listUser.length}
           next={() => getListUser(skip, limit)}
           hasMore={next}
           loader={<h4>Loading...</h4>}

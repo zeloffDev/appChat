@@ -1,3 +1,4 @@
+import { PATH_NAME } from "@/constants/PathName";
 import { useAppSelector } from "@/store/Hook";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +10,7 @@ export const RedirectToSignIn = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/signIn");
+      navigate(PATH_NAME.SIGN_IN);
     }
   }, [user, navigate]);
 

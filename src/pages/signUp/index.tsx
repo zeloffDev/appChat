@@ -1,5 +1,7 @@
 import { ButtonSpin } from "@/components/ButtonSpin";
 import { InputPassword } from "@/components/InputPassword";
+import { MASSAGE_NOTIFICATION } from "@/constants/MassageToastify";
+import { PATH_NAME } from "@/constants/PathName";
 import { UserServices } from "@/services/user/userService";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -28,15 +30,14 @@ const Index = (props: Props) => {
     setLoading(true);
     UserServices.userSignUp(data)
       .then((res) => {
-        toast.success("Successfully registered account");
+        toast.success(MASSAGE_NOTIFICATION.SIGN_UP_SUCCESS);
       })
       .catch((err) => {
         const massage =
-          err?.response?.data?.message ?? "Account registration failed";
+          err?.response?.data?.message ?? MASSAGE_NOTIFICATION.SIGN_UP_FAIL;
         toast.error(massage);
       })
       .finally(() => {
-        console.log("first");
         setLoading(false);
       });
   };
@@ -127,7 +128,7 @@ const Index = (props: Props) => {
               <ButtonSpin isLoading={loading}>Register</ButtonSpin>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Have you registered an account?
-                <NavLink to="/signin">
+                <NavLink to={PATH_NAME.SIGN_IN}>
                   <span className="font-medium text-blue-600 ml-1 text-primary-600 hover:underline dark:text-blue-500">
                     Log in
                   </span>

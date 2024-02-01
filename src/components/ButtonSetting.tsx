@@ -4,6 +4,7 @@ import { SvgSetting } from "@svg/SvgSetting";
 import { useAppDispatch } from "@/store/Hook";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "@/store/user/userSlice";
+import { PATH_NAME } from "@/constants/PathName";
 
 export interface IButtonSettingProps {}
 
@@ -18,7 +19,7 @@ export default function ButtonSetting(props: IButtonSettingProps) {
 
   const handleSignOut = () => {
     dispatch(signOut(null));
-    navigate("/signin");
+    navigate(PATH_NAME.SIGN_IN);
   };
 
   return (
@@ -40,7 +41,7 @@ export default function ButtonSetting(props: IButtonSettingProps) {
           <span>SignOut</span>
         </button>
         <div className="flex mt-[10px] gap-1 items-center">
-          DarkMode: <DarkModeSwitchButton />
+          Theme: <DarkModeSwitchButton />
         </div>
       </div>
     </div>

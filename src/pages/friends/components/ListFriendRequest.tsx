@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/store/Hook";
-import { ItemFriendRequest } from "./ItemFriendRequest";
 import InfiniteScroll from "react-infinite-scroll-component";
+import ItemFriendRequest from "./ItemFriendRequest";
 
 type Props = {
   getListFriendRequest: (skip: number, limit: number) => void;
@@ -19,7 +19,7 @@ export const ListFriendRequest = (props: Props) => {
     >
       <div className="mx-[20px] ">
         <InfiniteScroll
-          dataLength={friendsRequest.length + 15}
+          dataLength={friendsRequest.length}
           next={() => getListFriendRequest(skip, limit)}
           hasMore={next}
           loader={<h4>Loading...</h4>}

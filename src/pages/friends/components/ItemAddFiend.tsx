@@ -1,8 +1,11 @@
-import { SvgRevoke } from "@svg/SvgRevoke";
+import { CustomImg } from "@/components/CustomImg";
+import { MASSAGE_NOTIFICATION } from "@/constants/MassageToastify";
 import { FriendServices } from "@/services/friend/friendService";
-import { useAppDispatch, useAppSelector } from "@/store/Hook";
+import { useAppSelector } from "@/store/Hook";
 import { friendRedux } from "@/store/friend/friendRedux";
+import { SvgRevoke } from "@svg/SvgRevoke";
 import { SvgSend } from "@svg/SvgSend";
+import { memo, useMemo } from "react";
 import { toast } from "react-toastify";
 
 export interface IItemAddFriendProps {
@@ -12,11 +15,9 @@ export interface IItemAddFriendProps {
   listFriendRequest: string[];
 }
 
-export default function ItemAddFriend(props: IItemAddFriendProps) {
-  const dispatch = useAppDispatch();
+function ItemAddFriend(props: IItemAddFriendProps) {
   const { avatar, name, _id: friendId, listFriendRequest } = props;
   const { _id } = useAppSelector((state) => state.userStore.user);
-
   const handleAddFriendRequest = () => {
     const payload = {
       userId: _id,
@@ -24,11 +25,11 @@ export default function ItemAddFriend(props: IItemAddFriendProps) {
     };
     FriendServices.addFriendRequest(payload)
       .then((res) => {
-        dispatch(friendRedux.addFriendRequest(payload));
-        toast.success("Sent friend request successfully");
+        friendRedux.addFriendRequest(payload);
+        toast.info(MASSAGE_NOTIFICATION.SEND_FRIEND_REQUEST_SUCCESS);
       })
       .catch((err) => {
-        toast.error("failed to send friend request");
+        toast.error(MASSAGE_NOTIFICATION.SEND_FRIEND_REQUEST_FAIL);
       });
   };
 
@@ -39,21 +40,24 @@ export default function ItemAddFriend(props: IItemAddFriendProps) {
     };
     FriendServices.revokeFriendRequest(payload)
       .then((res) => {
-        dispatch(friendRedux.revokeFriendRequest(payload));
-        toast.success("Successfully revoked friend request");
+        friendRedux.revokeFriendRequest(payload);
+        toast.info(MASSAGE_NOTIFICATION.REVOKE_FRIEND_REQUEST_SUCCESS);
       })
       .catch((err) => {
-        toast.error("Revoke failed friend requests");
+        toast.error(MASSAGE_NOTIFICATION.SEND_FRIEND_REQUEST_FAIL);
       });
   };
 
-  const isSendRequest = listFriendRequest.includes(_id);
+  const isSendRequest = useMemo(
+    () => listFriendRequest.includes(_id),
+    [listFriendRequest, _id]
+  );
   return (
     <div
       className={`mb-[18px] w-full h-[65px]  duration-300  rounded-2xl flex items-center bg-white dark:bg-gray-600 hover:bg-blue-100 dark:hover:bg-gray-700 }`}
     >
       <div className="w-[48px]  h-[48px]  ml-[15px] bg-bgLogo rounded-full overflow-hidden ">
-        <img src={avatar} alt="Avatar" className="h-full w-full" />
+        <CustomImg src={avatar} alt="Avatar" className="h-full w-full" />
       </div>
       <div className="ml-[17px] text-left mx-[5px] max-w-[50%] sm:max-w-[100px]">
         <p className="font-semibold text-sm">{name}</p>
@@ -89,3 +93,5 @@ export default function ItemAddFriend(props: IItemAddFriendProps) {
     </div>
   );
 }
+
+export default memo(ItemAddFriend);

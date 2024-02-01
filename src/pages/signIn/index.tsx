@@ -2,6 +2,7 @@ import { ButtonSpin } from "@/components/ButtonSpin";
 import { InputPassword } from "@/components/InputPassword";
 import { LOCAL_STORE_NAME } from "@/constants/LocalStore";
 import { STATUS } from "@/constants/constants";
+import { MASSAGE_NOTIFICATION } from "@/constants/MassageToastify";
 import { useAppDispatch, useAppSelector } from "@/store/Hook";
 import { signInThunk } from "@/store/user/userThunk";
 import {
@@ -12,6 +13,7 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { PATH_NAME } from "@/constants/PathName";
 
 type Props = {};
 
@@ -35,8 +37,8 @@ const Index = (props: Props) => {
       .then((res) => {
         const { status } = res.data;
         if (STATUS.STATUS_200 === status) {
-          navigate("/");
-          toast.success("Logged in successfully");
+          navigate(PATH_NAME.CHAT);
+          toast.success(MASSAGE_NOTIFICATION.SIGN_IN_SUCCESS);
           if (data.remember) {
             setLocalStorageItem(
               LOCAL_STORE_NAME.USER_SIGN_IN,
@@ -49,7 +51,8 @@ const Index = (props: Props) => {
       })
       .catch((err) => {
         console.log(err);
-        const massage = err?.response?.data?.message ?? "Login failed";
+        const massage =
+          err?.response?.data?.message ?? MASSAGE_NOTIFICATION.SIGN_IN_FAIL;
         toast.error(massage);
       });
   };
@@ -132,7 +135,7 @@ const Index = (props: Props) => {
               <ButtonSpin isLoading={isLoading}>Log in</ButtonSpin>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Do not have an account?
-                <NavLink to="/signup">
+                <NavLink to={PATH_NAME.SIGN_UP}>
                   {" "}
                   <span className="font-medium text-blue-600 hover:underline dark:text-blue-500">
                     Register
