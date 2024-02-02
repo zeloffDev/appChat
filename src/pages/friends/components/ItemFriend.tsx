@@ -41,7 +41,7 @@ const ItemFriend = (props: Props) => {
       </div>
       <div className="ml-[17px] text-left mx-[5px]">
         <p className="font-semibold text-sm">{name}</p>
-        <p className={`font-normal truncate dark:text-whitetext-lastMassage`}>
+        <p className={`font-normal truncate dark:text-white text-lastMassage`}>
           Friend
         </p>
       </div>

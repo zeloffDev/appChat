@@ -1,0 +1,6 @@
+export enum MESSAGE_TYPE {
+  MESSAGE = "MESSAGE",
+  IMAGE = "IMAGE",
+  FILE = "FILE",
+  REVOKE = "REVOKE",
+}

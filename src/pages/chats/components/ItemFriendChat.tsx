@@ -1,23 +1,30 @@
 import { AvatarDefault } from "@/assets/Base64/AvatarDefault";
 import { CustomImg } from "@/components/CustomImg";
+import { IResponseGetFriends } from "@/services/friend/friendServiceType";
+import { useAppDispatch, useAppSelector } from "@/store/Hook";
+import { setFriend } from "@/store/chat/chatSlice";
 import { memo } from "react";
 
 export interface IAppProps {
-  active: number;
-  value: number;
-  name: string;
-  lastMessage: string;
-  time: string;
-  handleSetActive: (value: number) => void;
+  item: IResponseGetFriends;
+  lastMessage?: string;
+  time?: string;
 }
 
 function ItemFriendChat(props: IAppProps) {
-  const { active, value, name, lastMessage, time, handleSetActive } = props;
-  const isActive = active === value;
+  const dispatch = useAppDispatch();
+  const { item, lastMessage, time } = props;
+  const { avatar, name, _id } = item;
+  const friend = useAppSelector((state) => state.chatStore.friend);
 
+  const handleSetActive = (item: IResponseGetFriends) => {
+    dispatch(setFriend(item));
+  };
+
+  const isActive = friend._id === _id ? true : false;
   return (
     <button
-      onClick={() => handleSetActive(value)}
+      onClick={() => handleSetActive(item)}
       className={`mb-[18px] w-full h-[65px]  duration-300  rounded-2xl flex items-center cursor-pointer 
       ${
         isActive
@@ -26,7 +33,7 @@ function ItemFriendChat(props: IAppProps) {
       }`}
     >
       <div className="w-[48px]  h-[48px]  ml-[15px] bg-bgLogo rounded-full overflow-hidden ">
-        <CustomImg src={AvatarDefault} alt="Avatar" className="h-full w-full" />
+        <CustomImg src={avatar} alt="Avatar" className="h-full w-full" />
       </div>
       <div className="ml-[17px] text-left">
         <p className="font-semibold text-sm">{name}</p>

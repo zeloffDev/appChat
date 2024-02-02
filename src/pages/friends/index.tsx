@@ -20,7 +20,7 @@ const ADD_FRIEND = { value: 2, label: "Add Friend" };
 const FRIEND_REQUEST = { value: 3, label: "Friend Request" };
 
 export default function Friend(props: IFriendProps) {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(ALL_FRIEND.value);
   const [valueSearch, setValueSearch] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userStore.user);
@@ -28,55 +28,47 @@ export default function Friend(props: IFriendProps) {
 
   const getListFriend = useCallback(
     (skip: number, limit: number) => {
-      if (user) {
-        const params = {
-          userId: user._id,
-          name: valueSearch,
-          skip: skip,
-          limit: limit,
-        };
-        dispatch(getFriendsThunk(params));
-      }
+      const params = {
+        userId: user._id,
+        name: valueSearch,
+        skip: skip,
+        limit: limit,
+      };
+      dispatch(getFriendsThunk(params));
     },
     [user, valueSearch]
   );
 
   const getListUser = useCallback(
     (skip: number, limit: number) => {
-      if (user) {
-        const params = {
-          userId: user._id,
-          name: valueSearch,
-          skip: skip,
-          limit: limit,
-        };
-        dispatch(getListUserThunk(params));
-      }
+      const params = {
+        userId: user._id,
+        name: valueSearch,
+        skip: skip,
+        limit: limit,
+      };
+      dispatch(getListUserThunk(params));
     },
     [user, valueSearch]
   );
 
   const getListFriendRequest = useCallback(
     (skip: number, limit: number) => {
-      if (user) {
-        const params = {
-          userId: user._id,
-          name: valueSearch,
-          skip: skip,
-          limit: limit,
-        };
-        dispatch(getListFriendRequestThunk(params));
-      }
+      const params = {
+        userId: user._id,
+        name: valueSearch,
+        skip: skip,
+        limit: limit,
+      };
+      dispatch(getListFriendRequestThunk(params));
     },
     [user, valueSearch]
   );
 
-  const handleActive = (value: number) => {
-    setActive(value);
-  };
-
   const renderContentTab = () => {
     switch (active) {
+      case ALL_FRIEND.value:
+        return <ListFriend getListFriend={getListFriend} />;
       case ADD_FRIEND.value:
         return <AddFriend getListUser={getListUser} />;
       case FRIEND_REQUEST.value:
@@ -84,23 +76,29 @@ export default function Friend(props: IFriendProps) {
           <ListFriendRequest getListFriendRequest={getListFriendRequest} />
         );
       default:
-        return <ListFriend getListFriend={getListFriend} />;
+        return;
     }
   };
 
   const getData = () => {
     switch (active) {
+      case ALL_FRIEND.value:
+        return getListFriend(0, LIMIT.LIMIT);
       case ADD_FRIEND.value:
         return getListUser(0, LIMIT.LIMIT);
       case FRIEND_REQUEST.value:
         return getListFriendRequest(0, LIMIT.LIMIT);
       default:
-        getListFriend(0, LIMIT.LIMIT);
+        return;
     }
   };
 
-  const handleSetSearch = debounce((e) => {
-    setValueSearch(e);
+  const handleActive = (value: number) => {
+    setActive(value);
+  };
+
+  const handleSetSearch = debounce((value: string) => {
+    setValueSearch(value);
   });
 
   useEffect(() => {
@@ -146,9 +144,7 @@ export default function Friend(props: IFriendProps) {
         </div>
         {renderContentTab()}
       </div>
-      <div className="flex-1 sm:block hidden">
-        <ChatOnboard />
-      </div>
+      <ChatOnboard />
     </div>
   );
 }

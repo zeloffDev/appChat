@@ -16,7 +16,7 @@ const index = (props: Props) => {
         <p className="text-gray-500 mt-4 pb-4 border-b-2 text-center">
           Sorry, the page you are looking for could not be found.
         </p>
-        <NavLink to={PATH_NAME.NOT_FOUND}>
+        <NavLink to={PATH_NAME.CHAT}>
           <p
             className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 mt-6 rounded transition duration-150"
             title="Return Home"

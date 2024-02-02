@@ -12,3 +12,15 @@ export function debounce(
     }, delay ?? 300);
   };
 }
+
+export function isArray(value: any) {
+  if (Array.isArray(value)) {
+    if (value.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}

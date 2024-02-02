@@ -2,7 +2,7 @@ import { AvatarDefault } from "@/assets/Base64/AvatarDefault";
 import { DarkModeSwitchButton } from "@/components/DarkModeSwitchButton";
 import { PATH_NAME } from "@/constants/PathName";
 import { useAppDispatch } from "@/store/Hook";
-import { setScreenFrameChat } from "@/store/screen/screenSlice";
+import { clearFriend } from "@/store/chat/chatSlice";
 import { SvgFriend } from "@svg/SvgFriend";
 import { SvgMassage } from "@svg/SvgMassage";
 import { SvgPhone2 } from "@svg/SvgPhone2";
@@ -13,7 +13,7 @@ import { CustomImg } from "./CustomImg";
 
 type Props = {};
 
-type typeItemSibar = {
+type typeItemSideBar = {
   value: number;
   label: string;
   svg: ReactNode;
@@ -50,15 +50,15 @@ export const SideBar = (props: Props) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const itemsSideBar: typeItemSibar[] = [
+  const itemsSideBar: typeItemSideBar[] = [
     ITEM_SIDE_BAR.CHAT,
     ITEM_SIDE_BAR.FRIEND,
     ITEM_SIDE_BAR.PHONE,
   ];
 
-  const handleActive = (item: typeItemSibar) => {
+  const handleActive = (item: typeItemSideBar) => {
     navigate(item.path);
-    dispatch(setScreenFrameChat(false));
+    dispatch(clearFriend(null));
   };
 
   const handleClickProfile = () => {
@@ -69,7 +69,7 @@ export const SideBar = (props: Props) => {
     <div className="w-[77px] min-h-screen bg-bgSideBar border-r dark:border-none dark:bg-gray-700 text-center">
       <div className="flex flex-col items-center">
         <button
-          onClick={() => handleClickProfile()}
+          onClick={handleClickProfile}
           className="w-[38px]  h-[38px]  mt-[15px] bg-bgLogo rounded-full overflow-hidden cursor-pointer"
         >
           <CustomImg

@@ -1,9 +1,12 @@
 import { useCustomModal } from "@/components/CustomModal";
 import { InputSearch } from "@/components/InputSearch";
 import { SvgAddFriend } from "@/components/SvgComponent/SvgAddFriend";
+import { LIMIT } from "@/constants/constants";
 import { useAppDispatch, useAppSelector } from "@/store/Hook";
-import { setScreenFrameChat } from "@/store/screen/screenSlice";
-import { useCallback, useState } from "react";
+import { getFriendsThunk } from "@/store/friend/friendThunk";
+import { debounce } from "@/utils";
+import { useCallback, useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import AddFriend from "./AddFriend";
 import ItemFriendChat from "./ItemFriendChat";
 
@@ -11,36 +14,47 @@ type Props = {};
 
 export const ChatList = (props: Props) => {
   const dispatch = useAppDispatch();
-  const [active, setActive] = useState(1);
+  const [valueSearch, setValueSearch] = useState<string | null>(null);
+  const user = useAppSelector((state) => state.userStore.user);
+  const friend = useAppSelector((state) => state.chatStore.friend);
+  const { friends, limit, next, skip } = useAppSelector(
+    (state) => state.friendStore
+  );
   const { Modal, handleOpenModal } = useCustomModal();
-  const screenFrameChat = useAppSelector(
-    (state) => state.ScreenStore.screenFrameChat
+
+  const getListFriend = useCallback(
+    (skip: number, limit: number) => {
+      const params = {
+        userId: user._id,
+        name: valueSearch,
+        skip: skip,
+        limit: limit,
+      };
+      dispatch(getFriendsThunk(params));
+    },
+    [user, valueSearch]
   );
 
-  const itemFriends = [
-    { value: 1, name: "Zeloff", lastMessage: "Hello", time: "9:30" },
-    { value: 2, name: "NoName", lastMessage: "what", time: "1:30" },
-    { value: 3, name: "Fei", lastMessage: "Long time no see", time: "2:30" },
-    { value: 4, name: "Fei", lastMessage: "Long time no see", time: "2:30" },
-    { value: 5, name: "Fei", lastMessage: "Long time no see", time: "2:30" },
-    { value: 6, name: "Fei", lastMessage: "Long time no see", time: "2:30" },
-    { value: 7, name: "Fei", lastMessage: "Long time no see", time: "2:30" },
-    { value: 8, name: "Fei", lastMessage: "Long time no see", time: "2:30" },
-  ];
+  const handleSetSearch = debounce((value: string) => {
+    setValueSearch(value);
+  });
 
-  const handleSetActive = useCallback((value: number) => {
-    setActive(value);
-    dispatch(setScreenFrameChat(true));
-  }, []);
+  useEffect(() => {
+    getListFriend(0, LIMIT.LIMIT_20);
+  }, [valueSearch]);
 
   return (
     <div
       className={` sm:w-[350px] bg-bgChatList border-r dark:border-none dark:bg-gray-800 
-      ${screenFrameChat ? "hidden sm:block" : "w-full "}`}
+      ${friend._id ? "hidden sm:block" : "w-full "}`}
     >
       <div className="mx-[20px]">
         <div className="font-bold text-2xl leading-10 mt-[15px]">Chats</div>
-        <InputSearch />
+        <InputSearch
+          onChange={(e) => {
+            handleSetSearch(e.target.value);
+          }}
+        />
         <div className="w-full mt-[15px] border-t" />
         <div className="flex justify-between items-center">
           <p className="mt-[8px] truncate font-semibold text-allChats dark:text-white leading-5">
@@ -57,18 +71,19 @@ export const ChatList = (props: Props) => {
           </Modal>
         </div>
       </div>
-      <div className=" h-100vh-180px overflow-auto mt-[18px]">
+      <div id="friendScroll" className=" h-100vh-180px overflow-auto mt-[18px]">
         <div className="mx-[20px] ">
-          {itemFriends.map((item) => {
-            return (
-              <ItemFriendChat
-                key={item.value}
-                {...item}
-                active={active}
-                handleSetActive={handleSetActive}
-              />
-            );
-          })}
+          <InfiniteScroll
+            dataLength={friends.length}
+            next={() => getListFriend(skip, limit)}
+            hasMore={next}
+            loader={<h4>Loading...</h4>}
+            scrollableTarget="friendScroll"
+          >
+            {friends.map((item) => {
+              return <ItemFriendChat key={item._id} item={item} />;
+            })}
+          </InfiniteScroll>
         </div>
       </div>
     </div>

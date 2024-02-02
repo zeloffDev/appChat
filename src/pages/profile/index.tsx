@@ -48,9 +48,7 @@ export default function Profile(props: IProfileProps) {
           </div>
         </div>
       </div>
-      <div className="flex-1 sm:block hidden">
-        <ChatOnboard />
-      </div>
+      <ChatOnboard />
     </div>
   );
 }

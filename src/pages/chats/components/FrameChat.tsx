@@ -6,13 +6,12 @@ import { useAppSelector } from "@/store/Hook";
 type Props = {};
 
 export const FrameChat = (props: Props) => {
-  const screenFrameChat = useAppSelector(
-    (state) => state.ScreenStore.screenFrameChat
-  );
+  const friend = useAppSelector((state) => state.chatStore.friend);
+
   return (
     <div
       className={` sm:block flex-auto w-0 bg-bgSideBar
-      ${screenFrameChat ? "" : "hidden"} `}
+      ${friend._id ? "" : "hidden"} `}
     >
       <HeaderFrameChat />
       <BodyFrameChat />

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DarkModeSwitchButton } from "./DarkModeSwitchButton";
 import { SvgSetting } from "@svg/SvgSetting";
-import { useAppDispatch } from "@/store/Hook";
+import { useAppDispatch, useAppSelector } from "@/store/Hook";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "@/store/user/userSlice";
 import { PATH_NAME } from "@/constants/PathName";
@@ -12,6 +12,7 @@ export default function ButtonSetting(props: IButtonSettingProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [screenSetting, setScreenSetting] = useState(false);
+  const socket = useAppSelector((state) => state.socketStore.socket);
 
   const handleScreenSetting = () => {
     setScreenSetting((prev) => !prev);
@@ -20,6 +21,7 @@ export default function ButtonSetting(props: IButtonSettingProps) {
   const handleSignOut = () => {
     dispatch(signOut(null));
     navigate(PATH_NAME.SIGN_IN);
+    socket.emit("signOut");
   };
 
   return (
