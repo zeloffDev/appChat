@@ -1,10 +1,16 @@
 import ChatOnboard from "@/components/ChatOnboard";
+import { Helmet } from "react-helmet";
 
 export interface IProfileProps {}
 
 export default function Profile(props: IProfileProps) {
   return (
     <div className="flex text-xs w-full">
+      <Helmet>
+        <title>Profile</title>
+        <meta name="description" content="Profile" />
+        <meta name="keywords" content="Profile"></meta>
+      </Helmet>
       <div className="sm:w-[350px] w-full border-r bg-bgChatList dark:border-none dark:bg-gray-800">
         <div className="mx-[20px]">
           <div className="font-bold text-2xl leading-10 mt-[15px]">Profile</div>
