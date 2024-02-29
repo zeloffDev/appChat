@@ -9,7 +9,7 @@ export const RedirectToSignIn = () => {
   const user = useAppSelector((state) => state.userStore.user);
 
   useEffect(() => {
-    if (!user) {
+    if (!user._id) {
       navigate(PATH_NAME.SIGN_IN);
     }
   }, [user, navigate]);
