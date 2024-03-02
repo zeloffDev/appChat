@@ -22,11 +22,15 @@ export const useCustomModal = () => {
     }: {
       children: ReactNode;
     } & HTMLProps<HTMLDivElement>) => {
-      return (
-        <Modal isOpen={isOpen} handleCloseModal={handleCloseModal} {...rest}>
-          {children}
-        </Modal>
-      );
+      if (isOpen) {
+        return (
+          <Modal isOpen={isOpen} handleCloseModal={handleCloseModal} {...rest}>
+            {children}
+          </Modal>
+        );
+      } else {
+        return <></>;
+      }
     },
     [isOpen, handleCloseModal]
   );
