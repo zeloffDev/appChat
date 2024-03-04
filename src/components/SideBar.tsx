@@ -1,7 +1,6 @@
-import { AvatarDefault } from "@/assets/Base64/AvatarDefault";
 import { DarkModeSwitchButton } from "@/components/DarkModeSwitchButton";
 import { PATH_NAME } from "@/constants/PathName";
-import { useAppDispatch } from "@/store/Hook";
+import { useAppDispatch, useAppSelector } from "@/store/Hook";
 import { clearFriend } from "@/store/chat/chatSlice";
 import { SvgFriend } from "@svg/SvgFriend";
 import { SvgMassage } from "@svg/SvgMassage";
@@ -47,6 +46,8 @@ const ITEM_SIDE_BAR = {
 
 export const SideBar = (props: Props) => {
   const dispatch = useAppDispatch();
+  const { avatar } = useAppSelector((state) => state.userStore.user);
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -72,11 +73,7 @@ export const SideBar = (props: Props) => {
           onClick={handleClickProfile}
           className="w-[38px]  h-[38px]  mt-[15px] bg-bgLogo rounded-full overflow-hidden cursor-pointer"
         >
-          <CustomImg
-            src={AvatarDefault}
-            alt="Avatar"
-            className="h-full w-full"
-          />
+          <CustomImg src={avatar} alt="Avatar" className="h-full w-full" />
         </button>
         {itemsSideBar.map((item) => {
           const isActive = pathname === item.path;

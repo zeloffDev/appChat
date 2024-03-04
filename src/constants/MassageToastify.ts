@@ -11,4 +11,6 @@ export enum MASSAGE_NOTIFICATION {
   SEND_FRIEND_REQUEST_FAIL = "failed to send friend request",
   REVOKE_FRIEND_REQUEST_SUCCESS = "Successfully revoked friend request",
   REVOKE_FRIEND_REQUEST_FAIL = "Revoke failed friend requests",
+  UPDATE_SUCCESSFUL = "Update successful",
+  UPDATE_FAILED = "update failed",
 }

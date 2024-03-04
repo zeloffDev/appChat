@@ -62,7 +62,7 @@ function ItemAddFriend(props: IItemAddFriendProps) {
       <div className="ml-[17px] text-left mx-[5px] max-w-[50%] sm:max-w-[100px]">
         <p className="font-semibold text-sm">{name}</p>
         <p
-          className={`font-normal truncate dark:text-whitetext-lastMassage pr-[5px]`}
+          className={`font-normal truncate dark:text-white text-lastMassage pr-[5px]`}
         >
           Haven't made friends yet
         </p>

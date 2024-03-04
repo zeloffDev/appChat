@@ -1,5 +1,7 @@
 import {
+  IParamsInfo,
   IResponseUserSignIn,
+  IUpdateUserInfo,
   IUserSignIn,
   IUserSignUp,
 } from "./userService.type";
@@ -15,5 +17,16 @@ export const UserServices = {
   },
   userSignUp: (payload: IUserSignIn) => {
     return axiosInstance.post<IResponse<IUserSignUp>>("user/signup", payload);
+  },
+  userInfo: (params: IParamsInfo) => {
+    return axiosInstance.get<IResponse<IResponseUserSignIn>>("user", {
+      params,
+    });
+  },
+  updateUserInfo: (payload: IUpdateUserInfo) => {
+    return axiosInstance.put<IResponse<IResponseUserSignIn>>(
+      "user/update",
+      payload
+    );
   },
 };

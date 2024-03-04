@@ -60,9 +60,11 @@ function ItemAddFriend(props: IItemAddFriendProps) {
       <div className="w-[48px]  h-[48px]  ml-[15px] bg-bgLogo rounded-full overflow-hidden ">
         <CustomImg src={avatar} alt="Avatar" className="h-full w-full" />
       </div>
-      <div className="ml-[17px] text-left mx-[5px]">
+      <div className="ml-[17px] text-left mx-[5px] max-w-[50%]">
         <p className="font-semibold text-sm">{name}</p>
-        <p className={`font-normal truncate dark:text-whitetext-lastMassage`}>
+        <p
+          className={`font-normal truncate dark:text-white text-lastMassage pr-[5px]`}
+        >
           Haven't made friends yet
         </p>
       </div>
