@@ -21,7 +21,7 @@
       "@pages/*": ["./src/pages/*"],
       "@HOCs/*": ["./src/HOCs/*"],
       "@store/*": ["./src/store/*"],
-      "@Contexts*": ["./src/Contexts/*"],
+      "@Contexts*": ["src/contexts/*"],
       "@svg*": ["./src/components/SvgComponent/*"],
       "@constant*": ["./src/constants/*"],
       "@util*": ["./src/utils/*"]

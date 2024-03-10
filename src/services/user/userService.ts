@@ -29,4 +29,7 @@ export const UserServices = {
       payload
     );
   },
+  updateFile: (payload: FormData) => {
+    return axiosInstance.post<IResponse<string>>("/upload/cloud", payload);
+  },
 };

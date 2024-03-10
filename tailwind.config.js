@@ -21,6 +21,8 @@ module.exports = {
         bgMassage: "rgba(91, 150, 247, 1)",
         bgInputSearch: "rgba(234, 242, 254, 1)",
         bgChatList: "rgba(248, 250, 255, 1)",
+        bgHoverAvatar: "rgba(0, 0, 0, 0.2)",
+        bgHoverAvatar5: "rgba(0, 0, 0, 0.5)",
       },
       borderRadius: {
         "20px": "20px",

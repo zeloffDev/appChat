@@ -1,11 +1,13 @@
 import ChatOnboard from "@/components/ChatOnboard";
 import { CustomImg } from "@/components/CustomImg";
+import { SvgEye } from "@svg/SvgEye";
+import { SvgUpload } from "@svg/SvgUpload";
 import { MASSAGE_NOTIFICATION } from "@/constants/MassageToastify";
 import { STATUS } from "@/constants/constants";
 import { UserServices } from "@/services/user/userService";
 import { useAppDispatch, useAppSelector } from "@/store/Hook";
 import { userInfoThunk } from "@/store/user/userThunk";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -17,21 +19,24 @@ type Inputs = {
 
 export default function Profile() {
   const dispatch = useAppDispatch();
-  const { user, profile } = useAppSelector((state) => state.userStore);
-  const { avatar, name, about } = profile;
+  const { user } = useAppSelector((state) => state.userStore);
+  const { avatar, name, about, _id } = user;
   const { register, handleSubmit, setValue } = useForm<Inputs>({});
+  const [srcAvatar, setSrcAvatar] = useState<string>(avatar);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const payload = {
-      _id: user._id,
+      _id: _id,
       name: data.name,
       about: data.about,
+      avatar: srcAvatar,
     };
     UserServices.updateUserInfo(payload)
       .then((res) => {
         const { status } = res.data;
         if (STATUS.STATUS_200 === status) {
           toast.success(MASSAGE_NOTIFICATION.UPDATE_SUCCESSFUL);
+          getUserInfo();
         }
       })
       .catch((err) => {
@@ -44,19 +49,26 @@ export default function Profile() {
 
   const getUserInfo = () => {
     const params = {
-      userId: user._id,
+      userId: _id,
     };
     dispatch(userInfoThunk(params));
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const formData = new FormData();
+      formData.append("file", e.target.files[0]);
+      UserServices.updateFile(formData).then((res) => {
+        const newSrc = res.data.data;
+        setSrcAvatar(newSrc);
+      });
+    }
   };
 
   useEffect(() => {
     setValue("name", name);
     setValue("about", about);
   }, [name, about]);
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
   return (
     <div className="flex text-xs w-full">
@@ -69,10 +81,32 @@ export default function Profile() {
         <div className="mx-[20px]">
           <div className="font-bold text-2xl leading-10 mt-[15px]">Profile</div>
           <div className="flex justify-center items-center mt-[50px]">
-            <div className="w-[80px]  h-[80px] bg-bgLogo rounded-full overflow-hidden ">
-              <CustomImg src={avatar} alt="Avatar" className="h-full w-full" />
+            <div className="w-[100px]  h-[100px] bg-bgLogo rounded-full overflow-hidden relative group  ">
+              <CustomImg
+                src={srcAvatar}
+                alt="Avatar"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute h-full w-full top-0 text-center opacity-0 group-hover:opacity-80 text-white  transition-opacity duration-500 ">
+                <div className="h-[50%] flex justify-center items-center"></div>
+                <div className="h-[50%] flex justify-center items-center bg-bgHoverAvatar5 cursor-pointer">
+                  <label className="cursor-pointer" htmlFor="formId">
+                    <input
+                      name=""
+                      type="file"
+                      id="formId"
+                      accept="image/*"
+                      hidden
+                      onChange={handleFileChange}
+                    />
+                    <SvgUpload />
+                  </label>
+                  <SvgEye className="w-5 h-5 fill-white ml-[10px]" />
+                </div>
+              </div>
             </div>
           </div>
+
           <form
             className="space-y-4 md:space-y-6"
             onSubmit={handleSubmit(onSubmit)}

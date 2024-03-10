@@ -10,7 +10,6 @@ import { signInThunk, userInfoThunk } from "./userThunk";
 
 interface UserState {
   user: IResponseUserSignIn;
-  profile: IResponseUserSignIn;
   isLoading: boolean;
 }
 
@@ -25,7 +24,6 @@ const getUserLocal = () => {
 
 const initialState: UserState = {
   user: getUserLocal(),
-  profile: {} as IResponseUserSignIn,
   isLoading: false,
 };
 
@@ -43,8 +41,10 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(userInfoThunk.fulfilled, (state, action) => {
-      const profile = action.payload.data.data;
-      state.profile = profile;
+      const user = action.payload.data.data;
+      state.user = user;
+      state.isLoading = false;
+      setLocalStorageItem(LOCAL_STORE_NAME.USER, JSON.stringify(user));
     });
     builder.addCase(signInThunk.fulfilled, (state, action) => {
       const user = action.payload.data.data;

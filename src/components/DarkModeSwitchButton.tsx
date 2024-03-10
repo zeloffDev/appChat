@@ -1,4 +1,4 @@
-import { useDarkMode } from "@Contexts/ThemeContext";
+import { useDarkMode } from "@/contexts/ThemeContext";
 import { SvgDark } from "@svg/SvgDark";
 import { SvgLight } from "@svg/SvgLight";
 import { ButtonHTMLAttributes } from "react";

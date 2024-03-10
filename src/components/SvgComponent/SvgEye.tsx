@@ -1,12 +1,15 @@
-type Props = {};
+type Props = {
+  className?: string;
+};
 
 export const SvgEye = (props: Props) => {
+  const { className } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="w-5 h-5 fill-slate-400 "
       viewBox="0 0 20 20"
       fill="none"
+      className={className ? className : "w-5 h-5 fill-slate-400 "}
     >
       <path
         // fill-rule="evenodd"
